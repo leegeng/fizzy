@@ -14,12 +14,13 @@
       <% else %>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="var(--bubble-color)"><path d="m11.5 10.3-.6-.2c-.2-.5-.3-1.1-.1-1.6 1.1-1.2 1.6-2.7 1.5-4.3 0-2.4-1.6-4.2-3.8-4.2S4.7 1.8 4.7 4.2c-.1 1.5.4 3.1 1.5 4.3.2.5.2 1.1-.1 1.6l-.6.2c-2.4.9-4.2 1.5-4.8 2.6-.4 1.2-.7 2.4-.7 3.6 0 .3.2.5.5.5h16c.3 0 .5-.2.5-.5 0-1.2-.3-2.4-.7-3.5-.6-1.1-2.4-1.8-4.8-2.7"/></svg>
       <% end %>
-      <%= form.collection_select :user_id, User.all, :id, :name,
-          { prompt: "Assign to…", selected: bubble.assignees.pluck(:user_id) },
-          { class: "input input--hidden txt-medium", data: { action: "change->form#submit click->form#showPicker" } }
-      %>
+
+      <%= form.collection_select :user_id, User.active, :id, :name, { prompt: "Assign to…", selected: bubble.assignees.pluck(:id) },
+            class: "input input--hidden txt-medium",
+            data: { action: "change->form#submit click->form#showPicker" } } %>
       <span class="for-screen-reader">Assign to…</span>
     </label>
+
     <%= form.submit "Save", class: "btn", hidden: true %>
   <% end %>
 </span>
