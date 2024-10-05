@@ -33,7 +33,7 @@
       <div class="flex align-center justify-center flex-column gap-half center">
         <strong><%= link_to bucket.name, bucket_bubbles_path(bucket), class: "txt-x-large txt-ink" %></strong>
 
-        <%= link_to edit_bucket_path(bucket), class: "btn txt-small" do %>
+        <%= link_to edit_bucket_path(bucket), class: "btn txt-small", hidden: true do %>
           <%= image_tag "pencil.svg", aria: { hidden: true }, size: 24 %>
           <span class="for-screen-reader">Edit bucket</span>
         <% end %>

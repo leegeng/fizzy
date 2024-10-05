@@ -35,10 +35,10 @@
 
 .filter__popup {
   --panel-padding: 1em;
-  --panel-size: 20ch;
+  --panel-size: 18rem;
 
   inset: calc(var(--btn-size) * 0.6) 0 auto 50%;
-  max-inline-size: 60ch !important;
+  max-inline-size: var(--panel-size) !important;
   position: absolute;
   transform: translateX(-50%);
   transform-origin: top left;

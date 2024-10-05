@@ -443,7 +443,7 @@
     transition: background-color 200ms ease-out;
 
     &:nth-of-type(10)::after {
-      border-bottom: 1px dotted var(--color-subtle-dark);
+      border-bottom: 1px dashed var(--color-subtle-dark);
       block-size: 0;
       content: "";
       inline-size: 100%;
