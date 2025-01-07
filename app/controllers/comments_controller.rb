@@ -15,7 +15,6 @@ class CommentsController < ApplicationController
 
   def update
     @comment.update! comment_params
-    render :show
   end
 
   def destroy

@@ -3,5 +3,5 @@
     <%= avatar_tag comment.creator, loading: :lazy %>
   </figure>
 
-  <%= turbo_frame_tag dom_id(comment), src: bucket_bubble_comment_path(comment.bubble.bucket, comment.bubble, comment) %>
+  <%= render "comments/body", comment: comment %>
 <% end %>
