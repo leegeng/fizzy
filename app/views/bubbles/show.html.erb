@@ -1,11 +1,19 @@
 <% @page_title = @bubble.title %>
 
 <% content_for :header do %>
-  <nav>
+  <nav class="align-start">
     <%= link_to "#", class: "btn flex-item-justify-start", data: { controller: "hotkey back-navigation", action: "keydown.esc@document->hotkey#click", back_navigation_fallback_destination_value: bubbles_path(bucket_id: @bubble.bucket) } do %>
       <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
       <span class="for-screen-reader">Back</span>
     <% end %>
+
+    <header class="txt-align-center">
+      <h1 class="txt-large flex align-center gap-half">
+        <%= link_to @bucket.name, bubbles_path(bucket_ids: [ @bucket ]), class: "txt-ink txt-undecorated upad" %>
+      </h1>
+    </header>
+
+    <span class="btn btn--placeholder flex-item-justify-end"></span>
   </nav>
 <% end %>
 
