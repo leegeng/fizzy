@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 const MOVE_ITEM_DATA_TYPE = "x-fizzy/move"
 const DIVIDER_ITEM_NODE_NAME = "LI"
+const OVERLAP_THRESHOLD = 0.25
 
 export default class extends Controller {
   static targets = [ "divider", "dragImage", "count" ]
@@ -35,9 +36,12 @@ export default class extends Controller {
   moveDivider(event) {
     if (event.target.nodeName == DIVIDER_ITEM_NODE_NAME) {
       const rect = this.dividerTarget.getBoundingClientRect()
-      const overlap = Math.abs((event.clientY - rect.top) / rect.height)
+      const distanceToTop = Math.abs(event.clientY - rect.top)
+      const distanceToBottom = Math.abs(event.clientY - (rect.top + rect.height))
+      const distanceToNearestEdge = Math.min(distanceToTop, distanceToBottom)
+      const overlap = (distanceToNearestEdge / rect.height)
 
-      if (overlap > 0.5) {
+      if (overlap > OVERLAP_THRESHOLD) {
         this.#moveDividerTo(this.#items.indexOf(event.target))
       }
     }
