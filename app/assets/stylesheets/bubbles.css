@@ -366,18 +366,24 @@
     text-decoration: none;
   }
 
-  li {
-    border-radius: 0.6em;
-    list-style: none;
-    padding: 0.5em var(--inline-space);
-    position: relative;
-    transition: background-color 200ms ease-out;
+  ul {
+    li {
+      border-radius: 0.6em;
+      list-style: none;
+      padding: 0.5em var(--inline-space);
+      position: relative;
+      transition: background-color 200ms ease-out;
+    }
 
-    @media (hover: hover) {
-      &:hover {
-        background-color: color(from var(--bubble-color) srgb r g b / 0.15);
-        border: 0;
-        border-radius: 0.6em;
+    &:not(.dragging) {
+      li {
+        @media (hover: hover) {
+          &:hover {
+            background-color: color(from var(--bubble-color) srgb r g b / 0.15);
+            border: 0;
+            border-radius: 0.6em;
+          }
+        }
       }
     }
   }

@@ -5,7 +5,7 @@ const DIVIDER_ITEM_NODE_NAME = "LI"
 
 export default class extends Controller {
   static targets = [ "divider", "dragImage", "count" ]
-  static classes = [ "installed" ]
+  static classes = [ "installed", "dragging" ]
   static values = { startCount: Number, maxCount: Number }
 
   connect() {
@@ -22,6 +22,7 @@ export default class extends Controller {
       event.dataTransfer.dropEffect = "move"
       event.dataTransfer.setData(MOVE_ITEM_DATA_TYPE, event.target)
       event.dataTransfer.setDragImage(this.dragImageTarget, 0, 0)
+      this.element.classList.add(this.draggingClass)
     }
   }
 
@@ -31,14 +32,22 @@ export default class extends Controller {
     }
   }
 
-  moveDivider({ target }) {
-    if (target.nodeName == DIVIDER_ITEM_NODE_NAME) {
-      this.#moveDividerTo(this.#items.indexOf(target))
+  moveDivider(event) {
+    if (event.target.nodeName == DIVIDER_ITEM_NODE_NAME) {
+      const rect = this.dividerTarget.getBoundingClientRect()
+      const distanceToTop = Math.abs(event.clientY - rect.top)
+      const distanceToBottom = Math.abs(event.clientY - (rect.top + rect.height))
+      const distanceToNearestEdge = Math.min(distanceToTop, distanceToBottom)
+      const distancePercentage = (distanceToNearestEdge / rect.height) * 100
+
+      if (distancePercentage > 50) {
+        this.#moveDividerTo(this.#items.indexOf(event.target))
+      }
     }
   }
 
-  persist() {
-    // TODO
+  drop() {
+    this.element.classList.remove(this.draggingClass)
   }
 
   #moveDividerTo(index) {
