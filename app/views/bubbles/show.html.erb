@@ -84,7 +84,7 @@
 </aside>
 
 <div class="bubble__container" data-controller="beacon" data-beacon-url-value="<%= bucket_bubble_readings_url(@bubble.bucket, @bubble) %>">
-  <div class="bubble__perma flex justify-center center margin-block-end-double">
+  <div class="bubble__perma flex justify-center center">
     <%= render "bubbles/bubble", bubble: @bubble, editing: params[:editing] %>
   </div>
 
