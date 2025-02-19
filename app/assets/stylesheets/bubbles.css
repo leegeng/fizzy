@@ -118,7 +118,7 @@
     }
 
     @media (hover: hover) {
-      .windshield .bubble:hover & {
+      .windshield .bubble:not(.popped):hover & {
         transform: rotate(calc(var(--rotation) + var(--bubble-shift) * 1)) translate(0rem, 1rem);
       }
     }
@@ -143,15 +143,15 @@
     }
 
     @media (hover: hover) {
-      .windshield .bubble:hover & {
+      .windshield .bubble:not(.popped):hover & {
         transform: translate(0, -1rem);
       }
 
-      .windshield .bubble:hover & + & {
+      .windshield .bubble:not(.popped):hover & + & {
         transform: translate(1rem, -1rem);
       }
 
-      .windshield .bubble:hover & + & + & {
+      .windshield .bubble:not(.popped):hover & + & + & {
         transform: translate(1.5rem, -0.5rem);;
       }
     }
@@ -212,7 +212,7 @@
     }
 
     @media (hover: hover) {
-      .windshield .bubble:hover & {
+      .windshield .bubble:not(.popped):hover & {
         transform: translate(-0.5rem, -2rem);
       }
     }
@@ -242,7 +242,7 @@
     }
 
     @media (hover: hover) {
-      .windshield .bubble:hover & {
+      .windshield .bubble:not(.popped):hover & {
         transform: rotate(calc(var(--rotation) + var(--bubble-shift) * 1)) translate(0rem, 0.5rem);
       }
     }
@@ -269,15 +269,15 @@
   }
 
   @media (hover: hover) {
-    .windshield .bubble:hover & {
+    .windshield .bubble:not(.popped):hover & {
       transform: translate(1rem, 1rem);
     }
 
-    .windshield .bubble:hover & + & {
+    .windshield .bubble:not(.popped):hover & + & {
       transform: translate(0, -1rem);
     }
 
-    .windshield .bubble:hover & + & + & {
+    .windshield .bubble:not(.popped):hover & + & + & {
       transform: translate(-1rem, -1rem);
     }
   }
@@ -303,7 +303,7 @@
   transition: 0.2s ease;
 
   @media (hover: hover) {
-    .windshield .bubble:hover & {
+    .windshield .bubble:not(.popped):hover & {
       transform: rotate(calc(var(--bubble-rotate) + var(--bubble-shift))) scale(0.9);
     }
   }
@@ -595,13 +595,22 @@
 .splat__svg {
   display: none;
   pointer-events: none;
+  transform: rotate(var(--bubble-rotate));
 
   .popped & {
     display: block;
     fill: color-mix(in srgb, var(--bubble-color) 25%, var(--color-bg));
     position: absolute;
     scale: 130%;
-    transform: rotate(var(--bubble-rotate));
     z-index: -1;
+  }
+
+  .bubbles-list & {
+    block-size: var(--bubble-size);
+    fill: color-mix(in srgb, var(--bubble-color) 35%, var(--color-bg));
+    inline-size: var(--bubble-size);
+    position: relative;
+    scale: 1;
+    z-index: 0;
   }
 }
