@@ -1,6 +1,6 @@
 <div class="position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close">
   <button class="btn" data-action="dialog#open:stop">
-    <%= image_tag "art.svg", aria: { hidden: true }, size: 24 %>
+    <%= icon_tag "art" %>
     <span class="for-screen-reader">Change color</span>
   </button>
 
@@ -19,7 +19,7 @@
 
     <form method="dialog">
       <button class="btn txt-small" title="Close (esc)">
-        <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "remove" %>
         <span class="for-screen-reader">Close</span>
       </button>
     </form>

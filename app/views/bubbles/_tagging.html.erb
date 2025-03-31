@@ -6,7 +6,7 @@
       <%= form_with url: bucket_bubble_tagging_toggles_path(bubble.bucket, bubble), class: "flex gap-half align-center full-width pad-inline-half margin-block-end" do |form| %>
         <%= form.text_field :tag_title, placeholder: "New tag name...", class: "input txt-small full-width" %>
         <%= form.button "Add a tag…", type: "submit", class: "btn txt-small" do %>
-          <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+          <%= icon_tag "add" %>
           <span class="for-screen-reader">Add a tag</span>
         <% end %>
       <% end %>
@@ -22,7 +22,7 @@
             }, tag.id %>
 
             <%= form.label "tag_id[]", tag.hashtag, for: dom_id(tag, :tag), class: "overflow-ellipsis" %>
-            <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+            <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
           </div>
         <% end %>
       <% end %>

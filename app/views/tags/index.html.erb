@@ -12,7 +12,7 @@
         </span>
 
         <%= button_to tag_path(tag), class: "btn txt-small", method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
-          <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
+          <%= icon_tag "remove" %>
           <span class="for-screen-reader">Delete</span>
         <% end %>
       </li>

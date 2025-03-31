@@ -22,7 +22,7 @@
             data: { action: "change->form#submit" } %>
 
         <%= form.label :indexed_by, "Most active", value: filter.default_indexed_by, class: "overflow-ellipsis" %>
-        <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+        <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
       </div>
 
       <% Filter::INDEXES.each do |index| %>
@@ -32,7 +32,7 @@
               data: { action: "change->form#submit" } %>
 
           <%= form.label :indexed_by, index.humanize, value: index, class: "overflow-ellipsis" %>
-          <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+          <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
         </div>
       <% end %>
     <% end %>

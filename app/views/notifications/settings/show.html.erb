@@ -3,7 +3,7 @@
 <% content_for :header do %>
   <nav class="align-start">
     <%= link_to notifications_path, class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Go back</span>
     <% end %>
 

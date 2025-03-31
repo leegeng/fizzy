@@ -6,7 +6,7 @@
 <% content_for :header do %>
   <nav class="align-start">
     <%= link_to root_path, class: "btn", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "home.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "home" %>
       <span class="for-screen-reader">Home</span>
     <% end %>
 
@@ -18,12 +18,12 @@
 
     <% if bucket = @filter.buckets.first %>
       <%= link_to edit_bucket_path(bucket), class: "btn flex-item-justify-end" do %>
-        <%= image_tag "settings.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "settings" %>
         <span class="for-screen-reader">Settings for <%= bucket.name %></span>
       <% end %>
 
       <%= button_to bucket_bubbles_path(bucket), method: :post, class: "btn" do %>
-        <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "add" %>
         <span class="for-screen-reader">Create a new bubble</span>
       <% end %>
     <% else %>
@@ -33,22 +33,17 @@
   </nav>
 <% end %>
 
-<div class="cards--columns">
-  <section class="cards position-relative" style="align-items: center; border-inline-end: 1px solid var(--color-subtle);">
-    <h2 class="txt-align-center flex-inline center txt-uppercase txt-medium margin-none-block-start margin-block-end">
-      Considering
-    </h2>
-    <%= render partial: "bubbles/card_mini", collection: @bubbles.where(stage: [@filter.buckets.first&.workflow&.stages&.first, nil]), as: :bubble, cached: true %>
-  </section>
-  <section class="cards gap position-relative" style="align-items: center; view-transition-name: cards-container;" data-controller="bubble-size" data-action="turbo:morph@window->bubble-size#resize">
-    <h2 class="txt-align-center flex-inline center txt-uppercase txt-medium margin-none-block-start margin-block-end">
-      Doing
-    </h2>
-    <% if @bubbles.any? %>
-      <%#= render "display_count_selector", display_count: @display_count, filter: @filter %>
-      <%= render partial: "bubbles/card", collection: @bubbles.where.not(stage: @filter.buckets.first&.workflow&.stages&.first), as: :bubble, cached: true %>
-    <% else %>
-      <p class="txt-medium"><strong>Nothing here.</strong></p>
-    <% end %>
-  </section>
-</div>
+<section class="cards gap position-relative" style="view-transition-name: cards-container;" data-controller="bubble-size" data-action="turbo:morph@window->bubble-size#resize">
+  <% if @bubbles.any? %>
+    <%= render "display_count_selector", display_count: @display_count, filter: @filter %>
+    <%= render partial: "bubbles/card", collection: @bubbles.limit(@display_count), as: :bubble, cached: true %>
+  <% else %>
+    <p class="txt-medium"><strong>Nothing here.</strong></p>
+  <% end %>
+</section>
+
+<section class="bubbles-list margin-block-start">
+  <ul class="unpad margin-none flex flex-column txt-align-start">
+    <%= render partial: "bubbles/list/bubble", collection: @bubbles.offset(@display_count), as: :bubble, cached: true %>
+  </ul>
+</section>

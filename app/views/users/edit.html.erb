@@ -3,7 +3,7 @@
 <% content_for :header do %>
   <nav>
     <%= link_to user_path(@user), class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Back</span>
     <% end %>
   </nav>
@@ -53,7 +53,7 @@
           </label>
         </div>
         <button type="submit" id="log_in" class="btn btn--reversed center">
-          <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+          <%= icon_tag "check" %>
             <span class="for-screen-reader">Sign in</span>
         </button>
 

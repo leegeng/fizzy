@@ -14,7 +14,7 @@
 
     <div class="position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
       <button class="tag-picker__button btn card__hide-on-index <%= bubble.creating? || bubble.drafted? ? "fill-highlight" : "fill-transparent" %>" data-action="click->dialog#open:stop">
-        <%= image_tag "tag.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "tag" %>
         <span class="for-screen-reader">Add a tag</span>
       </button>
 

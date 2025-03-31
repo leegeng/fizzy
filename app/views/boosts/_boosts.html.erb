@@ -4,7 +4,7 @@
     <span><%= bubble.boosts_count == 1 ? "boost" : "boosts" %></span>
   </span>
   <%= tag.button class: "btn", type: :submit, style: "font-size: 0.5em" do %>
-    <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+    <%= icon_tag "add" %>
     <span class="for-screen-reader">Boost</span>
   <% end %>
 <% end %>

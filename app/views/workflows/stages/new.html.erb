@@ -2,11 +2,11 @@
   <%= form_with model: @stage, url: workflow_stages_path(@stage.workflow), class: "flex align-center gap-half", data: { controller: "form" } do |form| %>
     <%= form.text_field :name, required: true, autofocus: true, class: "input", data: { action: "keydown.esc@document->form#cancel" } %>
     <%= form.button type: :submit, class: "btn btn--positive txt-small" do %>
-      <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "check" %>
       <span class="for-screen-reader">Add stage</span>
     <% end %>
     <%= link_to workflow_path(@workflow), class: "btn btn--small", data: { form_target: "cancel", controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "remove-med.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "remove-med" %>
       <span class="for-screen-reader">Cancel</span>
     <% end %>
   <% end %>

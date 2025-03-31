@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :buckets do
     scope module: :buckets do
       resource :subscriptions
+      resource :workflow, only: :update
     end
 
     resources :bubbles do

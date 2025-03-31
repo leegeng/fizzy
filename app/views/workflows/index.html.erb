@@ -3,7 +3,7 @@
 <% content_for :header do %>
   <nav>
     <%= link_to account_users_path, class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Go back</span>
     <% end %>
     <span class="btn btn--placeholder"></span>
@@ -11,7 +11,7 @@
     <h1 class="txt-large"><%= @page_title %></h1>
 
     <%= link_to new_workflow_path, class: "btn flex-item-justify-end" do %>
-      <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "add" %>
       <span class="for-screen-reader">Create a new workflow</span>
     <% end %>
   </nav>

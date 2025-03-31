@@ -15,7 +15,7 @@
         <%= render partial: "workflows/stages/stage", collection: workflow.stages %>
 
         <%= link_to new_workflow_stage_path(workflow), class: "btn btn--small" do %>
-          <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+          <%= icon_tag "add" %>
           <span class="for-screen-reader">New stage</span>
         <% end %>
       <% end %>

@@ -34,7 +34,7 @@
           }, Current.user.id %>
 
           <%= form.label :creator_ids, "Me", for: form.field_id(:creator_ids, Current.user.id), class: "overflow-ellipsis" %>
-          <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+          <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
         </div>
 
         <% Current.account.users.active.without(Current.user).order(:name).each do |user| %>
@@ -47,7 +47,7 @@
             }, user.id %>
 
             <%= form.label :creator_ids, user.name, for: form.field_id(:creator_ids, user.id), class: "overflow-ellipsis" %>
-            <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+            <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
           </div>
         <% end %>
       <% end %>

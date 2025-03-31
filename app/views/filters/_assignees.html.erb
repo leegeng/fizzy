@@ -32,7 +32,7 @@
           }, "unassigned" %>
 
           <%= form.label :assignment_status, "No one", class: "overflow-ellipsis" %>
-          <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+          <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
         </div>
         
         <% Current.account.users.active.order(:name).each do |user| %>
@@ -44,7 +44,7 @@
             }, user.id %>
 
             <%= form.label "assignee_ids[]", user.name, for: dom_id(user, :filter), class: "overflow-ellipsis" %>
-            <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+            <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
           </div>
         <% end %>
       <% end %>

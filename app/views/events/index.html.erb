@@ -10,7 +10,7 @@
     </div>
 
     <%= link_to account_users_path, class: "btn flex-item-justify-end" do %>
-      <%= image_tag "settings.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "settings" %>
       <span class="for-screen-reader">Account settings</span>
     <% end %>
   </nav>
@@ -38,7 +38,7 @@
     <div class="flex align-start gap min-width" >
       <h2 class="txt-normal txt-uppercase overflow-ellipsis">Collections</h2>
       <%= link_to new_bucket_path, class: "btn txt-xx-small flex-item-justify-end flex-item-no-shrink", style: "view-transition-name: new-bucket" do %>
-        <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "add" %>
         <span class="for-screen-reader">New</span>
       <% end %>
     </div>

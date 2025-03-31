@@ -3,7 +3,7 @@
 <% content_for :header do %>
   <nav>
     <%= link_to workflows_path, class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Go back</span>
     <% end %>
     <h1 class="txt-large center"><%= @page_title %></h1>
@@ -16,7 +16,7 @@
     <%= form_with model: @workflow, url: workflows_path, data: { controller: "form" } do |form| %>
       <%= form.text_field :name, required: true, autofocus: true, class: "input txt-large", placeholder: "Name your Workflow…", data: { action: "keydown.esc@document->form#cancel" } %>
       <%= form.button type: :submit, class: "btn btn--reversed center margin-block-start txt-large" do %>
-        <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "check" %>
         <span class="for-screen-reader">Create Workflow</span>
       <% end %>
       <%= link_to "Go back", workflows_path, data: { form_target: "cancel", turbo_frame: "_top" }, hidden: true %>

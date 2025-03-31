@@ -3,13 +3,13 @@
 <% content_for :header do %>
   <nav>
     <%= link_to bubbles_path(bucket_ids: [ @bbucket ]), class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Go back</span>
     <% end %>
 
     <%= form_with model: @bucket, class: "flex-item-justify-end", method: :delete do |form| %>
       <%= form.button class: "btn btn--negative", data: { turbo_confirm: "Are you sure you want to delete this?" } do %>
-        <%= image_tag "minus.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "minus" %>
         <span class="for-screen-reader">Delete <%= @bucket.name %></span>
       <% end %>
     <% end %>
@@ -68,7 +68,7 @@
     </section>
 
     <button type="submit" id="log_in" class="btn btn--reversed center txt-medium">
-      <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "check" %>
       <span class="for-screen-reader">Save</span>
     </button>
 
@@ -79,7 +79,7 @@
 <div class="panel shadow center flex flex-column gap-half margin-block-double" style="--panel-size: 55ch;">
   <strong class="txt-large">Choose a workflow</strong>
   <p class="margin-none">Use a workflow to track progress in this collection.</p>
-  <%= form_with model: @bucket, local: true, data: { controller: "form" } do |form| %>
+  <%= form_with model: @bucket, url: bucket_workflow_path(@bucket), local: true, method: :patch, data: { controller: "form" } do |form| %>
     <%= form.select :workflow_id, Current.account.workflows.map { |w| [w.name, w.id] }, { include_blank: "Choose…" }, class: "input input--select full-width", data: { action: "change->form#submit" } %>
   <% end %>
   <p><%= link_to "Manage workflows", workflows_path, class: "btn btn--plain txt-link" %></p>

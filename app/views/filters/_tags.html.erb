@@ -31,7 +31,7 @@
             }, tag.id %>
 
             <%= form.label "tag_ids[]", tag.hashtag, for: dom_id(tag, :filter), class: "overflow-ellipsis" %>
-            <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+            <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
           </div>
         <% end %>
       <% end %>

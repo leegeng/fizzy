@@ -1,3 +1,7 @@
 qa:
   account: 37s
   name: QA
+
+on_call:
+  account: 37s
+  name: "On call"

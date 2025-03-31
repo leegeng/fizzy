@@ -20,7 +20,7 @@
     <%= button_to notifications_mark_all_read_path, 
         class: "notification-tray__read_action btn btn--reversed fill-transparent borderless flex-item-justify-start shadow txt-xx-small", 
         data: { action: "click->dialog#close", turbo_frame: "notifications" } do %>
-      <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "check" %>
       <span class="for-screen-reader">Mark all read</span>
     <% end %>
 

@@ -4,13 +4,13 @@
       <span class="btn btn--placeholder txt-small" aria-hidden="true"></span>
 
       <h2 class="txt-large flex align-center gap-half margin-none">
-        <%= image_tag "filter.svg", aria: { hidden: true }, size: 30 %>
+        <%= icon_tag "filter", size: 30 %>
         <span>Filter</span>
       </h2>
 
       <form method="dialog">
         <button class="btn panel__close txt-small" title="Close (esc)">
-          <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
+          <%= icon_tag "remove" %>
           <span class="for-screen-reader">Close</span>
         </button>
       </form>
@@ -26,7 +26,7 @@
 
         <button class="btn">
           <span class="for-screen-reader">Apply</span>
-          <%= image_tag "arrow-right.svg", aria: { hidden: true }, size: 24 %>
+          <%= icon_tag "arrow-right" %>
         </button>
       <% end %>
     </div>
@@ -45,12 +45,13 @@
               <span>All Collections</span>
             <% end %>
           </li>
+
           <% Current.user.buckets.order(:name).each do |bucket| %>
             <li>
               <%= label_tag "bucket_ids_#{bucket.id}", class: "btn filter__button" do %>
                 <%= check_box_tag "bucket_ids[]", bucket.id, filter.buckets.include?(bucket), id: "bucket_ids_#{bucket.id}", hidden: true %>
                 <span><%= bucket.name %></span>
-                <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+                <%= icon_tag "close" %>
               <% end %>
             </li>
           <% end %>
@@ -62,7 +63,7 @@
             <%= label_tag "indexed_by_#{filter.default_indexed_by}", class: "btn filter__button" do %>
               <%= radio_button_tag "indexed_by", filter.default_indexed_by, filter.default_indexed_by?, hidden: true %>
               <span>Most active</span>
-              <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+              <%= icon_tag "close" %>
             <% end %>
           </li>
 
@@ -71,68 +72,74 @@
               <label class="btn filter__button">
                 <%= radio_button_tag "indexed_by", index, filter.indexed_by == index, class: "visually-hidden" %>
                 <span><%= index.humanize %></span>
-                <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+                <%= icon_tag "close" %>
               </label>
             </li>
           <% end %>
         </menu>
 
-        <menu class="filter__menu">
-          <li class="filter__label"><strong>In Stage</strong></li>
-          <% workflow = Current.account.workflows.first %>
-          <% workflow.stages.each do |stage| %>
-            <li>
-              <%= label_tag "stage_ids_#{stage.id}", class: "btn filter__button" do %>
-                <%= check_box_tag "stage_ids[]", stage.id, filter.stages.include?(stage), id: "stage_ids_#{stage.id}", hidden: true %>
-                <span><%= stage.name %></span>
-                <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
-              <% end %>
-            </li>
-          <% end %>
-        </menu>
+        <% if workflow = Current.account.workflows.first %>
+          <menu class="filter__menu">
+            <li class="filter__label"><strong>In Stage</strong></li>
+            <% workflow.stages.each do |stage| %>
+              <li>
+                <%= label_tag "stage_ids_#{stage.id}", class: "btn filter__button" do %>
+                  <%= check_box_tag "stage_ids[]", stage.id, filter.stages.include?(stage), id: "stage_ids_#{stage.id}", hidden: true %>
+                  <span><%= stage.name %></span>
+                  <%= icon_tag "close" %>
+                <% end %>
+              </li>
+            <% end %>
+          </menu>
+        <% end %>
 
-        <div class="filter__menu" role="group" aria-label="Tagged">
-          <div class="filter__label"><strong>Tagged</strong></div>
-          <% Current.account.tags.order(:title).each do |tag| %>
-            <div>
-              <label class="btn filter__button">
-                <%= check_box_tag "tag_ids[]", tag.id, filter.tags.include?(tag), class: "visually-hidden" %>
-                <span><%= tag.hashtag %></span>
-                <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
-              </label>
-            </div>
-          <% end %>
-        </div>
+        <% if (tags = Current.account.tags.order(:title)).any? %>
+          <div class="filter__menu" role="group" aria-label="Tagged">
+            <div class="filter__label"><strong>Tagged</strong></div>
+
+            <% tags.each do |tag| %>
+              <div>
+                <label class="btn filter__button">
+                  <%= check_box_tag "tag_ids[]", tag.id, filter.tags.include?(tag), class: "visually-hidden" %>
+                  <span><%= tag.hashtag %></span>
+                  <%= icon_tag "close" %>
+                </label>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 
         <div class="filter__menu" role="group" aria-label="Assigned to…">
           <div class="filter__label"><strong>Assigned to…</strong></div>
+
           <div>
             <label class="btn filter__button">
               <%= check_box_tag "assignment_status", "unassigned", filter.assignment_status.unassigned?,
-                    class: "visually-hidden",
-                    data: {
+                    class: "visually-hidden", data: {
                       action: "filter-form#clearCategory", 
                       filter_form_name_param: "assignee_ids[],assigner_ids[]" } %>
               <span>No one</span>
-              <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+              <%= icon_tag "close" %>
             </label>
           </div>
+
           <div>
             <label class="btn filter__button">
               <%= check_box_tag "assignee_ids[]", Current.user.id, filter.assignees.include?(Current.user),
                     class: "visually-hidden",
                     data: { action: "filter-form#clearCategory", filter_form_name_param: "assignment_status" } %>
               <span>Me</span>
-              <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+              <%= icon_tag "close" %>
             </label>
           </div>
+
           <% Current.account.users.active.without(Current.user).order(:name).each do |user| %>
             <div>
               <label class="btn filter__button">
                 <%= check_box_tag "assignee_ids[]", user.id, filter.assignees.include?(user), class: "visually-hidden",
                       data: { action: "filter-form#clearCategory", filter_form_name_param: "assignment_status" } %>
                 <span><%= user.name %></span>
-                <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+                <%= icon_tag "close" %>
               </label>
             </div>
           <% end %>
@@ -140,20 +147,22 @@
 
         <div class="filter__menu" role="group" aria-label="Added by…">
           <div class="filter__label"><strong>Added by…</strong></div>
+
           <div>
             <label class="btn filter__button">
               <%= check_box_tag "creator_ids[]", Current.user.id, filter.creators.include?(Current.user),
                     class: "visually-hidden" %>
               <span>Me</span>
-              <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+              <%= icon_tag "close" %>
             </label>
           </div>
+
           <% Current.account.users.active.without(Current.user).order(:name).each do |user| %>
             <div>
               <label class="btn filter__button">
                 <%= check_box_tag "creator_ids[]", user.id, filter.creators.include?(user), class: "visually-hidden" %>
                 <span><%= user.name %></span>
-                <%= image_tag "close.svg", aria: { hidden: true }, size: 24 %>
+                <%= icon_tag "close" %>
               </label>
             </div>
           <% end %>
@@ -164,13 +173,13 @@
 
   <div class="flex align-center txt-align-center justify-space-between gap-half margin-block-start">
     <%= tag.button class: "btn", form: :filter_form, formaction: filters_path, formmethod: :post do %>
-      <%= image_tag "bubbles.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "bubbles" %>
       <span>Save collection</span>
     <% end %>
 
     <button class="btn btn--reversed" form="filter_form">
       <span>Apply</span>
-      <%= image_tag "arrow-right.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-right" %>
     </button>
   </div>
 </dialog>

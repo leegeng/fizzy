@@ -33,8 +33,7 @@ class BucketsController < ApplicationController
     end
 
     def bucket_params
-      params.expect(bucket: [ :name, :all_access, :workflow_id ]).with_defaults(all_access: false)
-      params.require(:bucket).permit(:name, :all_access, :workflow_id)
+      params.expect(bucket: [ :name, :all_access ]).with_defaults(all_access: false)
     end
 
     def grantees

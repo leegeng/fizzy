@@ -13,3 +13,19 @@ qa_on_hold:
 qa_review:
   name: Review
   workflow: qa
+
+on_call_inbox:
+  name: Inbox
+  workflow: on_call
+
+on_call_in_progress:
+  name: In progress
+  workflow: on_call
+
+on_call_on_hold:
+  name: Waiting on customers
+  workflow: on_call
+
+on_call_review:
+  name: Pending deploy
+  workflow: on_call

@@ -14,7 +14,7 @@
             }, user.id %>
 
             <%= form.label "assignee_id[]", user.name, for: dom_id(user, :assign), class: "overflow-ellipsis" %>
-            <%= image_tag "check.svg", aria: { hidden: true }, size: 18, class: "checked flex-item-justify-end" %>
+            <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" %>
           </div>
         <% end %>
       <% end %>

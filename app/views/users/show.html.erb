@@ -3,13 +3,13 @@
 <% content_for :header do %>
   <nav>
     <%= link_to "javascript:window.history.back()", class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Back</span>
     <% end %>
 
     <% if Current.user == @user %>
       <%= link_to edit_user_path(@user), class: "btn flex-item-justify-end", data: { turbo_frame: dom_id(@user) } do %>
-        <%= image_tag "pencil.svg", aria: { hidden: true }, size: 24 %>
+        <%= icon_tag "pencil" %>
         <span class="for-screen-reader">Edit</span>
       <% end %>
     <% end %>
@@ -49,7 +49,7 @@
 
   <div class="panel shadow center margin-block-double">
     <%= button_to session_path, method: :delete, class: "btn center txt-medium" do %>
-      <%= image_tag "logout.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "logout" %>
       <span class="for-screen-reader">Sign out</span>
     <% end %>
   </div>

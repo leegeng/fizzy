@@ -3,7 +3,7 @@
 <% content_for :header do %>
   <nav>
     <%= link_to root_path, class: "btn flex-item-justify-start", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" } do %>
-      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "arrow-left" %>
       <span class="for-screen-reader">Go back</span>
     <% end %>
   </nav>
@@ -17,7 +17,7 @@
     </label>
 
     <button type="submit" id="log_in" class="btn btn--reversed center">
-      <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+      <%= icon_tag "check" %>
       <span class="for-screen-reader">Save</span>
     </button>
     <%= link_to "Cancel and go back", root_path, data: { form_target: "cancel", turbo_frame: "_top" }, hidden: true %>
