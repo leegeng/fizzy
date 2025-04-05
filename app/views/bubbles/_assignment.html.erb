@@ -3,7 +3,7 @@
     <dialog class="popup panel flex-column align-start gap-half fill-white shadow" data-dialog-target="dialog">
       <strong class="popup__title margin-block-start-half pad-inline-half txt-nowrap">Assign this to…</strong>
 
-      <%= form_with url: bucket_bubble_assignment_toggles_path(bubble.bucket, bubble), class: "flex flex-column full-width popup__list", data: { controller: "form" } do |form| %>
+      <%= form_with url: bucket_bubble_assignments_path(bubble.bucket, bubble), class: "flex flex-column full-width popup__list", data: { controller: "form" } do |form| %>
         <% bubble.bucket.users.active.sort_by(&:name).each do |user| %>
           <div class="btn popup__item">
             <%= form.check_box "assignee_id[]", {

@@ -57,9 +57,7 @@ Rails.application.routes.draw do
         resource :pin, only: [ :show, :create, :destroy ]
       end
 
-      namespace :assignments, as: :assignment do
-        resources :toggles
-      end
+      resources :assignments
 
       namespace :taggings, as: :tagging do
         resources :toggles

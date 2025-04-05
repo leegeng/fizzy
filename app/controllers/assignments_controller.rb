@@ -1,4 +1,4 @@
-class Assignments::TogglesController < ApplicationController
+class AssignmentsController < ApplicationController
   include BubbleScoped, BucketScoped
 
   def new
