@@ -103,5 +103,4 @@ Rails.application.routes.draw do
     options[:anchor] = ActionView::RecordIdentifier.dom_id(comment)
     route_for :bucket_bubble, comment.bubble.bucket, comment.bubble, options
   end
-
 end
