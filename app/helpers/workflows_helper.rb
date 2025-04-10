@@ -11,6 +11,6 @@ module WorkflowsHelper
   end
 
   def stage_color(stage)
-    stage.color.presence || "#2c6da8"
+    stage.color.presence || Colorable::DEFAULT_COLOR
   end
 end
