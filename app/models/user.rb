@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include Accessor, Assignee, Named, Role, Transferable
+  include Accessor, Assignee, Mentionable, Named, Role, Transferable
 
   has_one_attached :avatar
 
