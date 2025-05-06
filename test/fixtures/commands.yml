@@ -1,0 +1,10 @@
+logo_assign_to_jz_command:
+  user: jz
+  type: Command::Assign
+  data: <%= {
+    card_ids: [ ActiveRecord::FixtureSet.identify(:logo) ],
+    assignee_ids: [ ActiveRecord::FixtureSet.identify(:jz) ],
+    toggled_assignees_by_card: {
+      ActiveRecord::FixtureSet.identify(:logo) => [ ActiveRecord::FixtureSet.identify(:jz) ]
+    }
+  }.to_json %>
