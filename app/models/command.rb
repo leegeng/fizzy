@@ -13,7 +13,7 @@ class Command < ApplicationRecord
   def undo
   end
 
-  def can_undo?
+  def undoable?
     false
   end
 

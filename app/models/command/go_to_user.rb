@@ -3,12 +3,12 @@ class Command::GoToUser < Command
 
   validates_presence_of :user_id
 
-  def execute
-    redirect_to user
-  end
-
   def title
     "View profile of '#{user.name}'"
+  end
+
+  def execute
+    redirect_to user
   end
 
   private

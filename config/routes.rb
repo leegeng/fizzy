@@ -86,7 +86,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :commands
+  resources :commands do
+    scope module: :commands do
+      resource :undo, only: :create
+    end
+  end
 
   namespace :my do
     resources :pins

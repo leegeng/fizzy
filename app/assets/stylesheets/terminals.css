@@ -49,7 +49,6 @@
   .terminal__menu {
     display: none;
     list-style: none;
-    transition: display 1000ms allow-discrete;
 
     .terminal--open & {
       display: flex;

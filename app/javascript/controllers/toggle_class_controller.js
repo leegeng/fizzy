@@ -12,6 +12,7 @@ export default class extends Controller {
   }
 
   remove() {
+    console.debug("CALLED!");
     this.element.classList.remove(this.toggleClass)
   }
 }
