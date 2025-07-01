@@ -77,4 +77,13 @@
 
     cursor: auto;
   }
+
+  .workflow__swatch-btn {
+
+    @media (any-hover: hover) {
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
 }
