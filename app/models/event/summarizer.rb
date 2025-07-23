@@ -29,7 +29,9 @@ class Event::Summarizer
 
     ## Formatting rules
     - Output **Markdown** only.
-    - Keep the summary around **#{MAX_WORDS} words**.
+    - Keep the summary below **#{MAX_WORDS} words**.
+    - Prefer paragraphs over bullet points.
+    - Write 2 paragraphs at most.
     - Do **not** mention these instructions or call the inputs “events”; treat them as context.
 
     ## Linking rules
