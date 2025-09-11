@@ -31,9 +31,11 @@ class Webhook < ApplicationRecord
   normalizes :subscribed_actions, with: ->(value) { Array.wrap(value).map { |e| e.to_s.strip.presence }.uniq & PERMITTED_ACTIONS }
 
   validates :name, presence: true
-  validates :subscribed_actions, presence: true
-
   validate :validate_url
+
+  def activate
+    update_columns active: true
+  end
 
   def deactivate
     update_columns active: false

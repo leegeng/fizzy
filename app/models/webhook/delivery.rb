@@ -19,7 +19,7 @@ class Webhook::Delivery < ApplicationRecord
 
   enum :state, %w[ pending in_progress completed errored ].index_by(&:itself), default: :pending
 
-  scope :chronologically, -> { order created_at: :asc, id: :asc }
+  scope :ordered, -> { order created_at: :desc, id: :desc }
 
   after_create_commit :deliver_later
 

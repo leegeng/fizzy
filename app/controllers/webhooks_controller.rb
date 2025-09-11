@@ -46,6 +46,6 @@ class WebhooksController < ApplicationController
     end
 
     def webhook_params
-      params.require(:webhook).permit(:name, :url, :active, subscribed_actions: [])
+      params.require(:webhook).permit(:name, :url, subscribed_actions: [])
     end
 end

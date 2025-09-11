@@ -26,9 +26,11 @@
       <%= @webhook.url %>
     </div>
 
-    <div>
-      <%= @webhook.active ? "Active" : "Disabled" %>
-    </div>
+    <% unless @webhook.active? %>
+      <div>
+        <%= button_to "Reactivate", webhook_activation_path(@webhook), method: :post %>
+      </div>
+    <% end %>
 
     <div>
       <h2 class="margin-none">Secret</h2>
@@ -44,11 +46,15 @@
 
     <div class="flex flex-column gap-half margin-block-end">
       <h2 class="margin-none">Subscribed to</h2>
-      <ul>
-        <% @webhook.subscribed_actions.each do |action| %>
-          <li><%= action.humanize %></li>
-        <% end %>
-      </ul>
+      <% if @webhook.subscribed_actions.empty? %>
+        <p>This Webhook doesn't subscribe to any actions. It will never trigger.<p/>
+      <% else %>
+        <ul>
+          <% @webhook.subscribed_actions.each do |action| %>
+            <li><%= action.humanize %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
 
     <div class="flex flex-column gap-half margin-block-end">
@@ -57,7 +63,7 @@
         <p>This Webhook hasn't been triggered yet<p/>
       <% else %>
         <ul>
-          <%= render partial: "webhooks/delivery", collection: @webhook.deliveries.chronologically.limit(20), as: :delivery %>
+          <%= render partial: "webhooks/delivery", collection: @webhook.deliveries.ordered.limit(20), as: :delivery %>
         </ul>
       <% end %>
     </div>
