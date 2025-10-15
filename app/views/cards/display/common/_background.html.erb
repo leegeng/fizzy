@@ -10,7 +10,7 @@
   <div class="card__closed">
     <span class="card__closed-title" data-text="Not Now">Not Now</span>
     <strong class="card__closed-date"><%= card.postponed_at.strftime("%b %d, %Y") %></strong>
-    <span class="card__closed-by-line">by <span class="card__closed-by"><%= card.postponed_by.familiar_name %></span></span>
+    <span class="card__closed-by-line">by <span class="card__closed-by"><%= card.postponed_by&.familiar_name %></span></span>
   </div>
 <% end %>
 
