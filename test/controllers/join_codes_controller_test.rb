@@ -41,6 +41,8 @@ class JoinCodesControllerTest < ActionDispatch::IntegrationTest
         end
       end
 
+      assert_equal @join_code.code, Membership.last.join_code
+
       assert_redirected_to session_magic_link_path
       assert_equal landing_url(script_name: "/#{@tenant}"), session[:return_to_after_authenticating]
     end
