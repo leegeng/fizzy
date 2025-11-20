@@ -2,11 +2,6 @@
   /* Column container
   /* ------------------------------------------------------------------------ */
 
-  /* DEBUG: Remove this when done debugging keyboard navigation */
-  .card-columns :focus {
-    outline: 3px solid purple !important;
-  }
-
   #main:has(.card-columns) {
     --main-padding: 0;
   }
