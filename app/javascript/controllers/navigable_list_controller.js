@@ -41,7 +41,7 @@ export default class extends Controller {
   }
 
   select({ target }) {
-    this.#selectItem(target, true)
+    this.selectItem(target, true)
   }
 
   selectCurrentOrReset(event) {
@@ -60,37 +60,11 @@ export default class extends Controller {
     this.#setCurrentFrom(this.#visibleItems[this.#visibleItems.length - 1])
   }
 
-  // Private
+  // Public
 
-  get #visibleItems() {
-    return this.itemTargets.filter(item => {
-      return item.checkVisibility() && !item.hidden
-    })
-  }
+  async selectItem(item, skipFocus = false) {
+    await this.#selectCurrentElementInParent()
 
-  #selectPrevious() {
-    const index = this.#visibleItems.indexOf(this.currentItem)
-    if (index > 0) {
-      this.#setCurrentFrom(this.#visibleItems[index - 1])
-    }
-  }
-
-  #selectNext() {
-    const index = this.#visibleItems.indexOf(this.currentItem)
-    if (index >= 0 && index < this.#visibleItems.length - 1) {
-      this.#setCurrentFrom(this.#visibleItems[index + 1])
-    }
-  }
-
-  async #setCurrentFrom(element) {
-    const selectedItem = this.#visibleItems.find(item => item.contains(element))
-
-    if (selectedItem) {
-      await this.#selectItem(selectedItem)
-    }
-  }
-
-  async #selectItem(item, skipFocus = false) {
     this.#clearSelection()
     item.setAttribute(this.selectionAttributeValue, "true")
     this.currentItem = item
@@ -102,6 +76,39 @@ export default class extends Controller {
     if (this.hasNestedNavigationValue) { this.#activateNestedNavigableList() }
 
     if (!skipFocus && this.focusOnSelectionValue) { this.currentItem.focus() }
+  }
+
+  isSelected(item) {
+    return item === this.currentItem
+  }
+
+  // Private
+
+  async #setCurrentFrom(element) {
+    const selectedItem = this.#visibleItems.find(item => item.contains(element))
+
+    if (selectedItem) {
+      await this.selectItem(selectedItem)
+    }
+  }
+
+  get #parentNavigableListController() {
+    const parentNavigableList = this.element.parentElement?.closest("[data-controller~='navigable-list']")
+    if (parentNavigableList) {
+      return this.application.getControllerForElementAndIdentifier(parentNavigableList, "navigable-list")
+    }
+    return null
+  }
+
+  async #selectCurrentElementInParent() {
+    const parentController = this.#parentNavigableListController
+    if (parentController) {
+      const parentItem = this.element.closest("[data-navigable-list-target~='item']")
+      const isAlreadySelected = parentController.isSelected(parentItem)
+      if (!isAlreadySelected) {
+        await parentController.selectItem(parentItem, true)
+      }
+    }
   }
 
   #clearSelection() {
@@ -117,10 +124,50 @@ export default class extends Controller {
     }
   }
 
+  #activateNestedNavigableList() {
+    const nestedController = this.#nestedNavigableListController()
+    if (nestedController) {
+      nestedController.selectCurrentOrReset()
+      return true
+    }
+    return false
+  }
+
+  #nestedNavigableListController() {
+    const nestedElement = this.currentItem?.querySelector('[data-controller~="navigable-list"]')
+    if (nestedElement) {
+      return this.application.getControllerForElementAndIdentifier(nestedElement, "navigable-list")
+    }
+    return null
+  }
+
   #activateManualSelection() {
     const preselectedItem = this.itemTargets.find(item => item.hasAttribute(this.selectionAttributeValue))
     if (preselectedItem) {
       this.#setCurrentFrom(preselectedItem)
+    }
+  }
+
+  // Stimulus won't let you handle keydown events with different handlers for the same (nested) stimulus controllers.
+  #relayNavigationToParentNavigableList(event) {
+    const parentController = this.#parentNavigableListController
+    if (parentController) {
+      parentController.element.focus()
+      parentController.navigate(event)
+    }
+  }
+
+  #selectPrevious() {
+    const index = this.#visibleItems.indexOf(this.currentItem)
+    if (index > 0) {
+      this.#setCurrentFrom(this.#visibleItems[index - 1])
+    }
+  }
+
+  #selectNext() {
+    const index = this.#visibleItems.indexOf(this.currentItem)
+    if (index >= 0 && index < this.#visibleItems.length - 1) {
+      this.#setCurrentFrom(this.#visibleItems[index + 1])
     }
   }
 
@@ -159,33 +206,10 @@ export default class extends Controller {
     }
   }
 
-  #activateNestedNavigableList() {
-    const nestedController = this.#findNestedNavigableListController()
-    if (nestedController) {
-      nestedController.reset()
-      return true
-    }
-    return false
-  }
-
-  #findNestedNavigableListController() {
-    const nestedElement = this.currentItem?.querySelector('[data-controller~="navigable-list"]')
-    if (nestedElement) {
-      return this.application.getControllerForElementAndIdentifier(nestedElement, "navigable-list")
-    }
-    return null
-  }
-
-  // Stimulus won't let you handle keydown events with different handlers for the same (nested) stimulus controllers.
-  #relayNavigationToParentNavigableList(event) {
-    const parentNavigableList = this.element.parentElement?.closest('[data-controller~="navigable-list"]')
-    if (parentNavigableList) {
-      const parentController = this.application.getControllerForElementAndIdentifier(parentNavigableList, "navigable-list")
-      if (parentController) {
-        parentNavigableList.focus()
-        parentController.navigate(event)
-      }
-    }
+  get #visibleItems() {
+    return this.itemTargets.filter(item => {
+      return item.checkVisibility() && !item.hidden
+    })
   }
 
   #keyHandlers = {
