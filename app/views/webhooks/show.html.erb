@@ -12,7 +12,7 @@
       <%= icon_tag "pencil" %>
       <span class="for-screen-reader">Edit</span>
     <% end %>
-  <div>
+  </div>
 <% end %>
 
 <div class="panel panel--wide shadow center flex flex-column gap txt-align-start">
@@ -39,7 +39,7 @@
     <div class="flex flex-column">
       <h2 class="margin-none txt-uppercase txt-medium">Subscribed to</h2>
       <% if @webhook.subscribed_actions.empty? %>
-        <p class="margin-none txt-subtle">This Webhook isn't subscribed to any events. It will never trigger.<p/>
+        <p class="margin-none txt-subtle">This Webhook isn't subscribed to any events. It will never trigger.</p>
       <% else %>
         <ul class="margin-none unpad-block">
           <% @webhook.subscribed_actions.each do |action| %>
@@ -52,7 +52,7 @@
     <div class="flex flex-column">
       <h2 class="margin-none txt-uppercase txt-medium">Deliveries</h2>
       <% if @webhook.deliveries.empty? %>
-        <p class="margin-none txt-subtle">This Webhook hasn't been triggered yet<p/>
+        <p class="margin-none txt-subtle">This Webhook hasn't been triggered yet</p>
       <% else %>
         <ul class="margin-none unpad-block">
           <%= render partial: "webhooks/delivery", collection: @webhook.deliveries.ordered.limit(20), as: :delivery %>
