@@ -57,4 +57,12 @@ module SessionTestHelper
   ensure
     integration_session.default_url_options[:script_name] = original_script_name
   end
+
+  def in_single_tenant_mode
+    previous_multi_tenant = ENV["MULTI_TENANT"]
+    ENV["MULTI_TENANT"] = "false"
+    yield
+  ensure
+    ENV["MULTI_TENANT"] = previous_multi_tenant
+  end
 end

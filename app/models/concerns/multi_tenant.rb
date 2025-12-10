@@ -3,7 +3,7 @@ module MultiTenant
 
   class_methods do
     def accepting_signups?
-      ENV.fetch("MULTI_TENANT", "true") == "true" || Account.none?
+      ENV.fetch("MULTI_TENANT", "false") == "true" || Account.none?
     end
   end
 end

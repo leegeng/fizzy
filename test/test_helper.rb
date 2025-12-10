@@ -1,4 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
+ENV["MULTI_TENANT"] ||= "true"
+
 require_relative "../config/environment"
 
 require "rails/test_help"
