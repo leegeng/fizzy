@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: bf81d40a91880c059ce9d0447219385a2c8e4a15
+  revision: 0636a79d1bf268db6cdbbc6327106d08c3ff3751
   branch: ast-immediate-variants-process-locally
   specs:
     actioncable (8.2.0.alpha)

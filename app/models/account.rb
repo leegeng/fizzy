@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  include Entropic, Seedeable, MultiTenant
+  include Account::Storage, Entropic, MultiTenant, Seedeable
 
   has_one :join_code
   has_many :users, dependent: :destroy
