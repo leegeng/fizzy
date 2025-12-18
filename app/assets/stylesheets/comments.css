@@ -39,14 +39,13 @@
     .comment--system & {
       --comment-padding-block: var(--block-space-half);
 
-      max-inline-size: var(--comment-max);
       text-align: center;
 
       &::before {
         /* Make up space for lack of avatar */
         content: "";
         display: flex;
-        inline-size: calc(var(--comment-padding-inline) * 0.75);
+        inline-size: calc(var(--comment-padding-inline) * 0.9);
       }
 
       .comment__avatar {
@@ -125,6 +124,7 @@
 
     background-color: var(--comment-bg-color);
     border-radius: 0.2em;
+    max-inline-size: calc(100% - calc(var(--comment-padding-inline) * 0.75));
     padding:
       var(--comment-padding-block)
       calc(var(--comment-padding-inline) / 2)
