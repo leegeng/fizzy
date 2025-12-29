@@ -60,6 +60,15 @@ class HtmlHelperTest < ActionView::TestCase
       format_html(%(&lt;img src=&quot;https://example.com/&quot;!&gt;))
   end
 
+  test "make sure the linked content is properly sanitized" do
+    # https://hackerone.com/reports/3481093
+    result = format_html(%(https://google.com/\"&gt;test&lt;/a&gt;&lt;input&gt;&lt;/input&gt;))
+    assert_no_match(/<input>/i, result, "should not create an input element")
+
+    result = format_html(%(https://google.com/\"&gt;&lt;script&gt;alert('xss')&lt;/script&gt;))
+    assert_no_match(/<script>/i, result, "should not create a script element")
+  end
+
   test "handle URLs with query parameters" do
     # use assert_equal and not assert_equal_html to make sure we're getting entities correct
     assert_equal \
@@ -79,7 +88,7 @@ class HtmlHelperTest < ActionView::TestCase
 
   test "convert email addresses into mailto links" do
     assert_equal_html \
-      %(<p>Contact us at <a href="mailto:support@example.com">support@example.com</a></p>),
+      %(<p>Contact us at <a href="mailto:support@example.com" rel="noreferrer">support@example.com</a></p>),
       format_html("<p>Contact us at support@example.com</p>")
   end
 
