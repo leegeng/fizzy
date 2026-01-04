@@ -1,6 +1,6 @@
 namespace :import do
   desc "Import cards from JSON files in a folder"
-  task cards: :environment do |t, args|
+  task :cards, [:folder] => :environment do |t, args|
     folder = args[:folder]
     unless folder.present? && Dir.exist?(folder)
       puts "Usage: rails import:cards[path/to/folder]"
