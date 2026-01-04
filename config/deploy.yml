@@ -1,6 +1,6 @@
 # Name of this app
 service: fizzy
-image: fizzy
+image: ghcr.io/leegeng/fizzy
 
 
 #-- About your deployment --#
@@ -8,7 +8,7 @@ image: fizzy
 # Where to deploy fizzy
 servers:
   web:
-    - fizzy.example.com  # Set your server name here
+    - 91.99.197.62  # Set your server name here
 
 # How you connect to your server
 ssh:
@@ -17,7 +17,7 @@ ssh:
 # Automatic SSL
 proxy:
   ssl: true                # Set this to false if you *don't* want SSL
-  host: fizzy.example.com  # Set your server name here to use automatic SSL
+  host: fizzy.tynamics.com  # Set your server name here to use automatic SSL
 
 # Your application configuration (secrets come from .kamal/secrets).
 env:
@@ -27,10 +27,11 @@ env:
     - VAPID_PRIVATE_KEY
     - SMTP_USERNAME
     - SMTP_PASSWORD
+    - KAMAL_REGISTRY_PASSWORD
   clear:
-    BASE_URL: https://fizzy.example.com # The public URL of your Fizzy instance
-    MAILER_FROM_ADDRESS: support@example.com # The email "from" address that Fizzy sends email from
-    SMTP_ADDRESS: mail.example.com # The SMTP server you'll use to send email
+    BASE_URL: https://fizzy.tynamics.com # The public URL of your Fizzy instance
+    MAILER_FROM_ADDRESS: postmaster@sandbox688c41ce1fc8474b8d32df17f34b2419.mailgun.org # The email "from" address that Fizzy sends email from
+    SMTP_ADDRESS: smtp.mailgun.org # The SMTP server you'll use to send email
     MULTI_TENANT: false # Set to true to allow multiple accounts to sign up
     SOLID_QUEUE_IN_PUMA: true # Run background jobs in the app container
 
@@ -39,7 +40,10 @@ env:
 
 # Use a local registry to deploy
 registry:
-  server: localhost:5555
+  server: ghcr.io
+  username: leegeng
+  password: 
+    - KAMAL_REGISTRY_PASSWORD
 
 # Handy aliases for interacting with your deployment. For eaxmple: `bin/kamal console` will connect to a
 # Rails console in production.
@@ -62,3 +66,8 @@ asset_path: /rails/public/assets
 # Configure the image builder.
 builder:
   arch: amd64
+
+  # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
+  remote: ssh://root@91.99.197.62
+  secrets:
+    - KAMAL_REGISTRY_PASSWORD
