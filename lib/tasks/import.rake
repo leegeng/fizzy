@@ -14,7 +14,8 @@ namespace :import do
       account = Account.create!(name: "Imported Account")
     end
 
-    default_creator = User.first
+    # The first user is System
+    default_creator = User.last
     unless default_creator
       puts "No user found. Please seed the database first."
       exit 1
@@ -36,9 +37,10 @@ namespace :import do
 
         # 3. Process Card
         ActiveRecord::Base.transaction do
-          # Find or Create Board
+          # Find or Create Board (all_access: true so all users can see it)
           board_name = data['board'] || "Imported Board"
           board = Board.find_or_create_by!(name: board_name)
+          board.update!(all_access: true) unless board.all_access?
 
           # Create Card (number is auto-assigned by Card#assign_number callback)
           # We always create new cards to avoid conflicts with internal numbering system
