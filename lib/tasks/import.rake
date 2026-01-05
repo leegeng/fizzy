@@ -40,34 +40,23 @@ namespace :import do
           board_name = data['board'] || "Imported Board"
           board = Board.find_or_create_by!(name: board_name)
 
-          # Create Card
-          # Check if card with this number already exists to avoid duplicates/errors if running multiple times
-          # Note: Card numbers are usually auto-incrementing, so forcing a number might require skipping validations or careful handling.
-          # However, Card#assign_number uses ||= so if we set it, it should respect it.
-
-          card = Card.find_or_initialize_by(number: data['number'], board: board)
-
-          # Map Status if needed.
-          # JSON "Done" -> internal status.
-          # Card statuses are typically: open, closed.
-          # If existing logic uses specific buckets, we might need to map.
-          # Assuming "Done" maps to 'closed' or just a column.
-          # For simplicity, we import as-is into title/description and let the user sort it,
-          # or try to map 'Done' to closed.
-
+          # Create Card (number is auto-assigned by Card#assign_number callback)
+          # We always create new cards to avoid conflicts with internal numbering system
+          original_number = data['number']
           status_str = data['status']
-          # If status is 'Done', we might want to close it?
-          # Or just put it in a column named 'Done'?
-          # Let's try to put it in a column if possible, or leave it.
 
-          card.update!(
+          card = board.cards.create!(
             title: data['title'],
             description: data['description'],
+            creator: default_creator,
+            status: "published"
+          )
+
+          # Preserve original timestamps after creation
+          card.update_columns(
             created_at: data['created_at'],
             updated_at: data['updated_at'],
-            creator: default_creator,
-            # We don't forcefully set status because Card state is complex (triage, etc.)
-            # But if it is 'Done', maybe we close it?
+            last_active_at: data['updated_at']
           )
 
           # 4. Attachments
@@ -99,14 +88,14 @@ namespace :import do
             end
           end
 
-          # Extra: If status was "Done", maybe close the card?
+          # If status was "Done", close the card
           if status_str == "Done" && !card.closed?
-             card.close
-             # Reset updated_at because close touches it
-             card.update_column(:updated_at, data['updated_at'])
+            card.close
+            # Reset updated_at because close touches it
+            card.update_column(:updated_at, data['updated_at'])
           end
 
-          puts "Imported Card ##{card.number}: #{card.title}"
+          puts "Imported Card ##{card.number} (was ##{original_number}): #{card.title}"
         end
       rescue StandardError => e
         puts "Failed to import #{file_path}: #{e.message}"
